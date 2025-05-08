@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nézet - NyxVault</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="logo.png" alt="Icon" class="d-inline-block align-text-top navbar-logo">
+      NyxVault
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="view.html">Nézet</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="admin.html">Admin</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Ide kerülnek a kártyák -->
+<div class="container mt-4">
+    <h2 id="highlight">Kártyák</h2>
+    <div id="cardsContainer" class="row g-3">
+        
+    </div>
+</div>
+
+<!-- Bootstrap JS + Popper -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+<script>
+const STORAGE_KEY = 'cards';
+
+function loadCards() {
+    const cards = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    const container = document.getElementById('cardsContainer');
+    container.innerHTML = '';
+    if (cards.length === 0) {
+        container.innerHTML = '<p class="text-muted">Nincsenek megjeleníthető kártyák.</p>';
+        return;
+    }
+    cards.forEach(card => {
+        const col = document.createElement('div');
+        col.className = 'col-md-4';
+        col.innerHTML = `
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">${card.title}</h5>
+                    <p class="card-text">${card.description}</p>
+                </div>
+            </div>
+        `;
+        container.appendChild(col);
+    });
+}
+
+window.addEventListener('DOMContentLoaded', loadCards);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+
+/* Betűtípus */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+
+/* Általános */
+:root {
+  --color-1: #161218; /* mélyfekete árnyalat */
+  --color-2: #261e2e; /* sötét ibolya */
+  --color-3: #392b45; /* padlizsán */
+  --color-4: #4b3258; /* közép-lila */
+  --color-5: #5c3b6b; /* élénk lila */
+
+  --background-color: var(--color-1);
+  --navbar-color: var(--color-2);
+  --card-bg: var(--color-3);
+  --accent-color: var(--color-5);
+  --text-color: #f0f0f0;
+  --border-radius: 0.75rem;
+  --font-base: 'Roboto', sans-serif;
+}
+
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-base);
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------------------------------- */
+
+
+/* Navbar */
+.navbar {
+  background-color: var(--navbar-color) !important;
+  border-bottom: 2px solid var(--accent-color);
+}
+.navbar .navbar-brand .brand-text, .navbar-brand {
+  color: var(--text-color) !important;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.navbar-logo {
+    height: 32px;
+    width: auto;
+    margin-right: 10px;
+    filter: drop-shadow(0 0 2px var(--accent-color));
+}
+
+.nav-link {
+  color: var(--text-color) !important;
+  font-weight: 500;
+}
+.nav-link.active {
+  border-bottom: 2px solid var(--accent-color);
+}
+
+
+/* ---------------------------------- */
+
+
+/* Kártyák */
+.card, .product-card {
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--color-4) !important;
+  border-radius: var(--border-radius) !important;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover, .product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+}
+.card-header {
+  background-color: transparent !important;
+  border-bottom: 2px solid var(--accent-color) !important;
+}
+.card-title, .product-card .card-title {
+  color: var(--text-color) !important;
+  font-weight: 500;
+}
+.card-body, .product-card .card-body {
+  color: var(--text-color) !important;
+}
+.card-footer, .product-card .card-footer {
+  background-color: transparent !important;
+  border-top: none !important;
+}
+.card .btn, .product-card .btn {
+  border-radius: var(--border-radius) !important;
+}
+
+/* Gombok */
+.btn-outline-light {
+  border-color: var(--accent-color) !important;
+  color: var(--accent-color) !important;
+  font-weight: 500;
+}
+.btn-outline-light:hover {
+  background-color: var(--accent-color) !important;
+  color: var(--text-color) !important;
+}
+
+/* ---------------------------------- */
+
+
+/* Űrlap elemek (admin.html) */
+form#cardForm .form-control {
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--color-4) !important;
+  border-radius: var(--border-radius) !important;
+  color: var(--text-color) !important;
+}
+form#cardForm label.form-label {
+  color: var(--text-color) !important;
+  font-weight: 500;
+}
+#submitBtn, #cancelEditBtn {
+  background-color: transparent !important;
+  border: 1px solid var(--accent-color) !important;
+  color: var(--accent-color) !important;
+  border-radius: var(--border-radius) !important;
+  font-weight: 500;
+}
+#submitBtn:hover, #cancelEditBtn:hover {
+  background-color: var(--accent-color) !important;
+  color: var(--text-color) !important;
+}
+
+
+/* ---------------------------------- */
+
+/* Egyéb */
+.text-muted {
+  color: #888 !important;
+}
+
+/* Szekciócím */
+h2.section-title {
+    font-weight: 500;
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+  }

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin - NyxVault</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="logo.png" alt="Icon" class="d-inline-block align-text-top navbar-logo">
+      NyxVault
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="view.html">Nézet</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="admin.html">Admin</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+    <h2>CRUD Adminfelület</h2>
+
+    <!-- Űrlap új kártya hozzáadásához -->
+    <form id="cardForm" class="row g-3">
+        <div class="col-md-6">
+            <label for="title" class="form-label">Cím</label>
+            <input type="text" class="form-control" id="title" required>
+        </div>
+        <div class="col-md-6">
+            <label for="description" class="form-label">Leírás</label>
+            <input type="text" class="form-control" id="description" required>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary" id="submitBtn">Hozzáadás</button>
+            <button type="button" class="btn btn-secondary d-none" id="cancelEditBtn">Mégse</button>
+        </div>
+    </form>
+
+    <hr>
+
+    <!-- Lista a kártyák szerkesztéséhez -->
+    <div id="cardsList" class="row g-3">
+        <!-- Dinamikusan töltődik -->
+    </div>
+</div>
+
+<!-- Bootstrap JS + Popper -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+<script>
+// LS kulcs
+const STORAGE_KEY = 'cards';
+let editIndex = -1;
+
+// Betöltés
+function loadCards() {
+    const cards = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    const container = document.getElementById('cardsList');
+    container.innerHTML = '';
+    cards.forEach((card, idx) => {
+        const col = document.createElement('div');
+        col.className = 'col-md-4';
+        col.innerHTML = `
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">${card.title}</h5>
+                    <p class="card-text">${card.description}</p>
+                    <button class="btn btn-sm btn-warning me-2" onclick="startEdit(${idx})">Szerkeszt</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteCard(${idx})">Töröl</button>
+                </div>
+            </div>
+        `;
+        container.appendChild(col);
+    });
+}
+
+// Új kártya vagy mentés
+document.getElementById('cardForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const title = document.getElementById('title').value;
+    const description = document.getElementById('description').value;
+    let cards = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    if (editIndex >= 0) {
+        cards[editIndex] = { title, description };
+        editIndex = -1;
+        document.getElementById('submitBtn').innerText = 'Hozzáadás';
+        document.getElementById('cancelEditBtn').classList.add('d-none');
+    } else {
+        cards.push({ title, description });
+    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(cards));
+    this.reset();
+    loadCards();
+});
+
+// Szerkesztés elindítása
+function startEdit(idx) {
+    const cards = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    const card = cards[idx];
+    document.getElementById('title').value = card.title;
+    document.getElementById('description').value = card.description;
+    editIndex = idx;
+    document.getElementById('submitBtn').innerText = 'Mentés';
+    document.getElementById('cancelEditBtn').classList.remove('d-none');
+}
+
+// Edit visszavonása
+document.getElementById('cancelEditBtn').addEventListener('click', function() {
+    editIndex = -1;
+    document.getElementById('cardForm').reset();
+    document.getElementById('submitBtn').innerText = 'Hozzáadás';
+    this.classList.add('d-none');
+});
+
+// Törlés
+function deleteCard(idx) {
+    let cards = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    cards.splice(idx, 1);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(cards));
+    loadCards();
+}
+
+// Inicializálás
+window.addEventListener('DOMContentLoaded', loadCards);
+</script>
+
+</body>
+</html>
