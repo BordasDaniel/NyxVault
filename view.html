@@ -3,34 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nézet - NyxVault</title>
+    <title>Termékeink</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <img src="logo.png" alt="Icon" class="d-inline-block align-text-top navbar-logo">
-      NyxVault
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="view.html">Nézet</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="admin.html">Admin</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="logo.png" alt="Icon" class="d-inline-block align-text-top navbar-logo">
+            NyxVault
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="main.html">Főoldal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="view.html">Termékeink</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="admin.html">Belépés</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
 
 <!-- Ide kerülnek a kártyák -->
 <div class="container mt-4">
@@ -40,12 +43,40 @@
     </div>
 </div>
 
+<!-- Modal HTML (rakd be az oldal végére) -->
+<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="viewModalLabel">Termék részletei</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Bezárás"></button>
+      </div>
+      <div class="modal-body">
+        <h5 id="modalTitle"></h5>
+        <p id="modalDescription"></p>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Bezárás</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer class="site-footer mt-auto py-4">
+  <div class="container text-center text-muted small">
+    <p>&copy; 2025 NyxVault. Minden jog fenntartva.</p>
+    <p>Készítette: Bordás Dániel | Kapcsolat: nyxvault@webshop.hu</p>
+  </div>
+</footer>
+
 <!-- Bootstrap JS + Popper -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
 <script>
 const STORAGE_KEY = 'cards';
+const CART_KEY = 'cart';
 
 function loadCards() {
     const cards = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
@@ -55,14 +86,19 @@ function loadCards() {
         container.innerHTML = '<p class="text-muted">Nincsenek megjeleníthető kártyák.</p>';
         return;
     }
-    cards.forEach(card => {
+
+    cards.forEach((card, index) => {
         const col = document.createElement('div');
-        col.className = 'col-md-4';
+        col.className = 'col-md-4 mb-4';
         col.innerHTML = `
-            <div class="card h-100">
+            <div class="card product-card h-100">
                 <div class="card-body">
                     <h5 class="card-title">${card.title}</h5>
                     <p class="card-text">${card.description}</p>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <button class="btn btn-outline-light btn-sm" onclick="viewCard(${index})">Megtekintés</button>
+                    <button class="btn btn-outline-light btn-sm" onclick="addToCart(${index})">Kosárba</button>
                 </div>
             </div>
         `;
@@ -70,7 +106,27 @@ function loadCards() {
     });
 }
 
+function viewCard(index) {
+    const cards = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    const card = cards[index];
+    document.getElementById('modalTitle').innerText = card.title;
+    document.getElementById('modalDescription').innerText = card.description;
+    const viewModal = new bootstrap.Modal(document.getElementById('viewModal'));
+    viewModal.show();
+}
+
+function addToCart(index) {
+    const cards = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    const card = cards[index];
+    const cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+    cart.push(card);
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    alert(`„${card.title}” hozzáadva a kosárhoz.`);
+}
+
 window.addEventListener('DOMContentLoaded', loadCards);
+
+
 </script>
 
 </body>
