@@ -87,21 +87,27 @@ function loadCards() {
         return;
     }
 
-    cards.forEach((card, index) => {
+     cards.forEach((card, index) => {
         const col = document.createElement('div');
-        col.className = 'col-md-4 mb-4';
-        col.innerHTML = `
-            <div class="card product-card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">${card.title}</h5>
-                    <p class="card-text">${card.description}</p>
-                </div>
-                <div class="card-footer d-flex justify-content-between">
-                    <button class="btn btn-outline-light btn-sm" onclick="viewCard(${index})">Megtekintés</button>
-                    <button class="btn btn-outline-light btn-sm" onclick="addToCart(${index})">Kosárba</button>
+        col.className = 'col-12 col-sm-6 col-lg-4'; // Mobilon 1, tableten 2, desktopon 3 oszlop
+
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'card product-card h-100';
+
+        cardDiv.innerHTML = `
+            <img src="${card.image}" class="card-img-top" alt="Kép">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">${card.title}</h5>
+                <p class="card-text">${card.description}</p>
+                <p class="card-price mt-auto"><strong>${card.price.toFixed(0)} Ft</strong></p>
+                <div class="btn-container">
+                    <button class="btn btn-outline-dark btn-sm" onclick="viewCard(${index})">Megtekintés</button>
+                    <button class="btn btn-outline-success btn-sm" onclick="addToCart(${index})">Kosárba</button>
                 </div>
             </div>
         `;
+
+        col.appendChild(cardDiv);
         container.appendChild(col);
     });
 }
