@@ -11,7 +11,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="main.html" id="webname-mini">
             <img src="logo.png" alt="Icon" class="d-inline-block align-text-top navbar-logo">
             NyxVault
           </a>
@@ -36,7 +36,7 @@
       </nav>
 
 <div class="container mt-5">
-    <h2 class="mb-4">Új termék hozzáadása</h2>
+    <h2 class="mb-4" id="webname">Új termék hozzáadása</h2>
     <form id="addCardForm">
         <div class="mb-3">
             <label for="title" class="form-label">Cím</label>
@@ -59,7 +59,7 @@
 
     <hr class="my-5">
 
-    <h2>Termékek</h2>
+    <h2 id="webname">Termékek</h2>
     <div id="adminCardsContainer" class="row g-3 mt-3"></div>
 </div>
 
@@ -70,6 +70,8 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script>
 const STORAGE_KEY = 'cards';
 let editIndex = null;
@@ -99,13 +101,20 @@ function saveCard(event) {
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(cards));
     loadCards();
-    document.getElementById('addCardForm').reset(); // Ez is rossz volt
+    document.getElementById('addCardForm').reset();
 }
+
+
 
 function loadCards() {
     const cards = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
     const container = document.getElementById('adminCardsContainer');
     container.innerHTML = '';
+
+     if (cards.length === 0) {
+        container.innerHTML = '<p class="text-muted">Nincsenek megjeleníthető kártyák.</p>';
+        return;
+    }
 
     cards.forEach((card, index) => {
         const col = document.createElement('div');

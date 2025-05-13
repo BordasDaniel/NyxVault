@@ -11,7 +11,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="main.html" id="webname-mini">
             <img src="logo.png" alt="Icon" class="d-inline-block align-text-top navbar-logo">
             NyxVault
           </a>
@@ -37,7 +37,7 @@
 
 <!-- Ide kerülnek a kártyák -->
 <div class="container mt-4">
-    <h2 id="highlight">Kártyák</h2>
+    <h2 id="webname">Termékek</h2>
     <div id="cardsContainer" class="row g-3">
         
     </div>
@@ -45,19 +45,22 @@
 
 <!-- Modal HTML (rakd be az oldal végére) -->
 <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog responsive-centered-modal">
     <div class="modal-content bg-dark text-white">
       <div class="modal-header border-0">
         <h5 class="modal-title" id="viewModalLabel">Termék részletei</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Bezárás"></button>
       </div>
-      <div class="modal-body">
+     <div class="modal-body">
+        <img id="modalImage" src="" alt="Termékkép" class="w-100 mb-3 rounded" style="height: 250px; object-fit: cover;">
         <h5 id="modalTitle"></h5>
         <p id="modalDescription"></p>
-      </div>
-      <div class="modal-footer border-0">
-        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Bezárás</button>
-      </div>
+        <p id="modalPrice" class="card-price"></p>
+    <div class="d-flex flex-column align-items-center mt-3 gap-2">
+      <button id="viewAddToCartBtn" class="btn btn-outline-success w-100">Kosárba</button>
+    </div>
+</div>
+
     </div>
   </div>
 </div>
@@ -115,11 +118,23 @@ function loadCards() {
 function viewCard(index) {
     const cards = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
     const card = cards[index];
+
     document.getElementById('modalTitle').innerText = card.title;
     document.getElementById('modalDescription').innerText = card.description;
+    document.getElementById('modalImage').src = card.image;
+    document.getElementById('modalImage').alt = card.title;
+    document.getElementById('modalPrice').innerHTML = `<strong>${card.price.toFixed(0)} Ft</strong>`;
+
+     // Kosárba gomb eseménykezelő frissítése
+    const addToCartBtn = document.getElementById('viewAddToCartBtn');
+    addToCartBtn.onclick = function () {
+        addToCart(index);
+    };
+
     const viewModal = new bootstrap.Modal(document.getElementById('viewModal'));
     viewModal.show();
 }
+
 
 function addToCart(index) {
     const cards = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
