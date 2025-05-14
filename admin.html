@@ -35,7 +35,7 @@
         </div>
       </nav>
 
-<div class="container mt-5">
+<div class="container mt-5 main-content">
     <h2 class="mb-4" id="webname">Új termék hozzáadása</h2>
     <form id="addCardForm">
         <div class="mb-3">
@@ -54,8 +54,34 @@
             <label for="price" class="form-label">Ár (Ft)</label>
             <input type="number" class="form-control" id="price" required>
         </div>
-        <button type="submit" class="btn btn-outline-light">Mentés</button>
+
+      <div class="d-flex justify-content-between align-items-center mt-3">
+          <div>
+            <button type="submit" class="btn btn-outline-success me-2">Mentés</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="cancelEdit()">Mégse</button>
+          </div>
+          <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#clearModal">Tisztítás</button>
+      </div>
     </form>
+
+      <!-- Tisztítás megerősítő modal -->
+    <div class="modal fade" id="clearModal" tabindex="-1" aria-labelledby="clearModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background-color: var(--color-1); color: var(--text-color);">
+          <div class="modal-header">
+            <h5 class="modal-title" id="clearModalLabel">⚠️ <span class="modalTitleDec">Figyelmeztetés</span></h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Bezárás"></button>
+          </div>
+          <div class="modal-body">
+            Biztosan törlöd az összes mentett adatot? <br> <span class="figyelmeztet">Ez a művelet nem vonható vissza!</span>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Mégse</button>
+            <button type="button" class="btn btn-outline-danger" onclick="confirmClear()">Megerősítés</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <hr class="my-5">
 
@@ -141,6 +167,21 @@ function loadCards() {
     });
 }
 
+function cancelEdit() {
+  const form = document.getElementById("addCardForm");
+    if (form) {
+        form.reset();
+    }
+}
+
+function clearLocalStorage() {
+  if (confirm("Biztosan törlöd az összes mentett adatot?")) {
+    localStorage.clear();
+    alert("A localStorage kiürítve.");
+    location.reload(); // Frissítés, ha szükséges
+  }
+}
+
 function editCard(index) {
     const cards = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
     const card = cards[index];
@@ -158,6 +199,13 @@ function deleteCard(index) {
     cards.splice(index, 1);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(cards));
     loadCards();
+}
+
+function confirmClear() {
+  localStorage.clear();
+  const modal = bootstrap.Modal.getInstance(document.getElementById('clearModal'));
+  modal.hide(); // bezárja a modalt
+  location.reload(); // újratölti az oldalt, ha kell
 }
 
 window.addEventListener('DOMContentLoaded', () => {

@@ -85,11 +85,40 @@ html, body {
 /* Kártyák */
 .card, .product-card {
   background-color: var(--card-bg) !important;
-  border: 1px solid var(--color-4) !important;
+  border: 3px solid var(--accent-color) !important;
   border-radius: var(--border-radius) !important;
+  box-shadow: 0 0 10px var(--color-5) !important;
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
+
+.card-body
+{
+      display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+.card .btn-container {
+    margin-top: auto;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card-title {
+    font-size: 1.5rem;
+}
+
+.card-text {
+    font-size: 0.9rem;
+}
+
+
 .card:hover, .product-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.6);
@@ -203,16 +232,34 @@ html, body {
 .modal-content
 {
   background-color: var(--background-color) !important;
+  box-shadow: 0 0 10px var(--color-5) !important;
+  border-radius: var(--border-radius) !important;
+  border: 3px solid var(--color-5) !important;
 }
 
 .modal-title
 {
   color: var(--color-6) !important;
-  font-weight: 500;
-  text-decoration: underline;
-  text-decoration-color: var(--color-5);
+  font-weight: 800 ; 
 }
 
+
+.figyelmeztet
+{
+  color: rgb(171, 48, 48) !important;
+  font-weight: 700;
+}
+
+.modalTitleDec
+{
+  text-decoration: underline !important;
+  text-decoration-color: var(--accent-color);
+}
+
+.modal-header,
+.modal-footer {
+  border: none !important;
+}
 /* ---------------------------------- */
 
 
@@ -287,6 +334,13 @@ h2.section-title {
 .site-footer p {
   margin: 0.2rem 0;
 }
+
+/*Footer fix*/
+.main-content {
+  flex: 1 0 auto !important;
+}
+
+
 
 .video-section {
   position: relative;
@@ -401,8 +455,6 @@ h2.section-title {
 
 
   .right-content, .card, .card-body {
-  width: 80vw !important;
-  height: 35vh !important;
   overflow-wrap: break-word !important;
   word-wrap: break-word !important;
   word-break: break-word !important;
@@ -423,6 +475,16 @@ h2.section-title {
 
   .lead-buttons .btn {
   width: 50vw !important;
+  }
+
+}
+
+/*Ez csak pc-n jó*/
+@media screen and (min-width: 992px) {
+
+  .divider-line
+  {
+    margin-top: 3rem;
   }
 
 }
@@ -470,13 +532,12 @@ h2.section-title {
 
 .divider-line {
   width: 2px;
-  height: 100%;
+  height: auto;
   background-color: var(--accent-color);
   box-shadow: 0 0 10px var(--accent-color);
 }
 
 .right-content {
-  width: 500px; /* vagy amennyi jól néz ki */
   min-height: 200px; /* hogy ne ugorjon össze, ha rövidebb */
   transition: all 0.3s ease;
 }
@@ -501,4 +562,22 @@ h2.section-title {
 
 #back-to-top:hover {
   background-color:  var(--color-4);
+}
+
+
+
+#searchInput
+{
+  width: 70vw !important;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-4);
+  box-shadow: 0 0 5px var(--color-4);
+  background-color: var(--card-bg);
+  color: var(--text-color); 
+}
+
+#searchInput::placeholder
+{
+  color: var(--text-color);
 }
