@@ -6,9 +6,13 @@
   <title>Főoldal</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="logo.png" type="image/x-icon">
   <style>
-    body{
-      overflow: hidden;
+
+    @media (min-width: 768px){
+        body{
+          overflow: hidden;
+        }
     }
 
   </style>
@@ -59,34 +63,40 @@
 </div>
 
 
-<!-- Container szekció (Bootstrap kell hozzá) -->
-<div id="info-section" class="container my-3 section-fullscreen main-content">
+<div id="info-section" class="page-wrapper container-fluid h-auto">
+    
+    <!-- GOMB -->
+    <button id="scrollTopBtn">
+      <img src="arrow.png" alt="scroll up icon">
+    </button>
 
-   <a href="#main-section" class="btn btn-custom" id="back-to-top">⬆</a>
-
-  <div class="row hely">
-    <!-- Bal oldali menü -->
-    <div class="col-12 col-md-5 mb-3 mt-5">
-      <div id="infoMenu" class="d-flex flex-column">
-        <span class="menu-link active" onclick="showSection('whyUs', this)">➤ Miért minket válassz?</span>
-        <span class="menu-link" onclick="showSection('aboutUs', this)">➤ Kik vagyunk?</span>
-        <span class="menu-link" onclick="showSection('vision', this)">➤ Víziónk</span>
-        <span class="menu-link active" onclick="showSection('tradition', this)">➤ Hagyomány és misztikum</span>
-        <span class="menu-link" onclick="showSection('unique', this)">➤ Egyediség</span>
-        <span class="menu-link" onclick="showSection('feedback', this)">➤ Vásárlói visszajelzések</span>
-
-      </div>
+    <!-- KÖZÉPSŐ RÉSZ – KÉT FLEXBOX OSZLOP -->
+    <div class="main-content">
+        
+    <div class="row middle-content gx-3">
+    <!-- BAL OLDAL -->
+    <div class="col-12 col-md-5">
+        <div class="left-content d-flex flex-column">
+        <div id="infoMenu" class="d-flex flex-column w-100">
+            <span class="menu-link active" onclick="showSection('whyUs', this)">➤ Miért minket válassz?</span>
+            <span class="menu-link" onclick="showSection('aboutUs', this)">➤ Kik vagyunk?</span>
+            <span class="menu-link" onclick="showSection('vision', this)">➤ Víziónk</span>
+            <span class="menu-link active" onclick="showSection('tradition', this)">➤ Hagyomány és misztikum</span>
+            <span class="menu-link" onclick="showSection('unique', this)">➤ Egyediség</span>
+            <span class="menu-link" onclick="showSection('feedback', this)">➤ Vásárlói visszajelzések</span>
+        </div>
+        </div>
     </div>
 
-     <div class="col-12 col-md-1 d-flex justify-content-start">
-      <div class="divider-line"></div>
-    </div>
+     <!-- ELVÁLASZTÓ -->
+  <div class="col-12 col-md-auto d-flex justify-content-center align-items-center">
+    <div class="divider"></div>
+  </div>
 
-
-    <!-- Jobb oldali tartalom -->
-    <div class="col-12 col-md-6 d-flex flex-column justify-content-center">
-      <div class="right-content">
-      <div id="whyUs" class="info-section">
+    <!-- JOBB OLDAL -->
+     <div class="col-12 col-md-5">
+     <div class="right-content d-flex flex-column">
+        <div id="whyUs" class="info-section">
         <h3>🏛️ Miért minket válassz?</h3>
         <p>A NyxVault nem csupán egy webshop, egy sötét esztétikájú életérzés közvetítője. Termékeinket gondosan válogatjuk, hogy megfeleljenek a gótikus stílus szerelmeseinek igényeinek – legyen szó vintage ékszerekről, sötét ruházatról vagy misztikus lakáskiegészítőkről. Vásárlóink biztonságban érezhetik magukat, hiszen megbízható szállítással, korrekt garanciával és egyedülálló ügyfélszolgálattal dolgozunk. Ha nálunk vásárolsz, nem csak egy terméket, hanem egy darabot kapsz az árnyékok eleganciájából.</p>
       </div>
@@ -119,19 +129,27 @@
           <footer class="blockquote-footer">Gergely, Vác</footer>
         </blockquote>
 
-      </div>
+         </div>
+     </div>
+     </div>
+
     </div>
+
+    </div>
+
   </div>
-</div>
-</div>
 
-
-<footer class="site-footer mt-auto py-4">
-    <div class="container text-center text-muted small">
-      <p>&copy; 2025 NyxVault. Minden jog fenntartva.</p>
-      <p>Készítette: Bordás Dániel | Kapcsolat: nyxvault@webshop.hu</p>
-    </div>
+  <footer class="site-footer py-4">
+      <div class="container text-center text-muted small">
+        <p>&copy; 2025 NyxVault. Minden jog fenntartva.</p>
+        <p>Készítette: Bordás Dániel | Kapcsolat: nyxvault@webshop.hu</p>
+      </div>
   </footer>
+
+
+
+
+
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -146,7 +164,7 @@ function showSection(id, element) {
 }
 
 
-document.getElementById("back-to-top").addEventListener("click", function(event) {
+document.getElementById("scrollTopBtn").addEventListener("click", function(event) {
   event.preventDefault(); // ne a böngésző alapértelmezett viselkedését használja
   window.scrollTo({
     top: 0,

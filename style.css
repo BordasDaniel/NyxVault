@@ -134,7 +134,7 @@ html, body {
 .card-body, .product-card .card-body {
   color: var(--text-color) !important;
 }
-.card-footer, .product-card .card-footer {
+.product-card, .product-card .card-footer {
   background-color: transparent !important;
   border-top: none !important;
 }
@@ -333,7 +333,7 @@ h2.section-title {
 
 .site-footer p {
   margin: 0.2rem 0;
-}
+} 
 
 /*Footer fix*/
 .main-content {
@@ -416,80 +416,6 @@ h2.section-title {
  }
 
 
-
-/* Második rész */
- .menu-link {
-  cursor: pointer;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1rem;
-  color: var(--text-color);
-  background-color: var(--card-bg);
-  border-left: 4px solid transparent;
-  border-radius: var(--border-radius);
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.menu-link:hover {
-  background-color: var(--color-4);
-}
-
-.menu-link.active {
-  border-left: 4px solid var(--accent-color);
-  background-color: var(--color-4);
-}
-
-@media (max-width: 768px) {
-  
-  .menu-link {
-    width: 768px !important;
-    max-width: 100%;
-    word-wrap: break-word;
-  }
-
-  .menu-link {
-  width: 80vw !important;
-  max-width: 100%;
-  word-wrap: break-word;
-  }
-
-
-  .right-content, .card, .card-body {
-  overflow-wrap: break-word !important;
-  word-wrap: break-word !important;
-  word-break: break-word !important;
-  white-space: normal !important;
-  }
-
-  .hely
-  {
-    margin-top: 25vh !important;
-  }
-
-  .divider-line
-  {
-    width: 100% !important;
-    height: 5px !important;
-    margin-bottom: 20px;
-  }
-
-  .lead-buttons .btn {
-  width: 50vw !important;
-  }
-
-}
-
-/*Ez csak pc-n jó*/
-@media screen and (min-width: 992px) {
-
-  .divider-line
-  {
-    margin-top: 3rem;
-  }
-
-}
-
-
 .btn-custom {
   background-color: transparent;
   color: var(--accent-color);
@@ -518,54 +444,210 @@ h2.section-title {
   align-items: center;
 }
 
-#info-section
-{
-  position: relative;
-  height: 85vh;
-  overflow-y: auto;
-  padding: 2rem;
-  display: flex;
-  align-items: center;
-  margin-bottom: 0 !important;
+@media (max-width: 768px) {
+  .lead-buttons .btn {
+    width: 40vw;
+  }
 }
 
 
-.divider-line {
+/*Második rész*/
+
+    #scrollTopBtn {
+      margin: 5vh auto 3.3rem;
+      background-color: #6c4b85;
+      padding: 16px 24px;
+      font-size: 26px;
+      border: 2px solid var(--accent-color);;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20vw;
+      transition: background-color 0.3s ease;
+
+    }
+
+    #scrollTopBtn img {
+      height: 32px;
+    }
+
+    #scrollTopBtn:hover {
+      background-color:  var(--color-4);
+    }
+
+    @media (max-width: 768px)
+    {
+      #scrollTopBtn {
+        width: 70vw;
+      }
+
+      .divider{
+        width: 80vw !important;
+        height: 3px !important;
+        margin-bottom: 1.5rem !important;
+        margin-top: 1.5rem !important;
+      }
+        
+    }
+
+  
+
+
+    @media (min-width: 768px) {
+      #info-section {
+        height: 84vh !important;
+      }
+    }
+
+    .main-content {
+      /* padding: 10px 100px; */
+      width: 100%;
+      height: auto;
+
+    }
+
+    .flex-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      height: 100%;
+      padding: 20px;
+      background-color: #222;
+      border-radius: 10px;
+    }
+
+    .site-footer {
+      background-color: var(--navbar-color);
+      color: var(--text-color);
+      border-top: 2px solid var(--accent-color);
+      font-size: 0.875rem;
+    }
+
+    .site-footer p {
+      margin: 0.2rem 0;
+    }
+
+    .menu-link {
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  background-color: var(--card-bg);  border-left: 4px solid transparent;
+  border-left: 4px solid transparent !important;
+  border-radius: var(--border-radius) !important;
+  font-weight: 500 !important;
+  transition: color 0.3s ease;
+  font-weight: 500;
+  width: 100%;
+}
+
+.menu-link:hover {
+  background-color: var(--color-4);
+}
+
+.menu-link.active {
+    border-left: 4px solid var(--accent-color);
+  background-color: var(--color-4);
+}
+
+/* Középső oszlop konténerei */
+.middle-content {
+  margin-top: 1rem;
+   min-height: auto;
+}
+
+@media (min-width: 768px) {
+  .middle-content {
+      margin-left: 4rem;
+  }
+    
+}
+
+
+/* Bal és jobb tartalom külön él */
+.left-content,
+.right-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.right-content
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Függőleges középre igazítás */
+  align-items: center;     /* Vízszintes középre igazítás */
+  height: 100%;            /* Szükséges a középre igazításhoz */
+  /* padding: 2rem */
+  margin: 0 2.5rem;
+}
+
+
+/* Menü linkek */
+.menu-link {
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  background-color: var(--card-bg, #2c2c35);
+  border-left: 4px solid transparent;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, border-left 0.3s ease;
+  width: 100%;
+}
+
+.menu-link:hover {
+  background-color: var(--color-4, #3a2f4d);
+}
+
+.menu-link.active {
+  border-left: 4px solid var(--accent-color);
+  background-color: var(--color-4, #3a2f4d);
+}
+
+/* Tartalom szekciók */
+.info-section {
+  margin-bottom: 2rem;
+}
+
+.info-section h3 {
+  margin-bottom: 1rem;
+}
+
+.info-section p {
+  line-height: 1.6;
+}
+
+.d-none {
+  display: none;
+}
+
+.divider{
   width: 2px;
   height: auto;
   background-color: var(--accent-color);
   box-shadow: 0 0 10px var(--accent-color);
 }
 
-.right-content {
-  min-height: 200px; /* hogy ne ugorjon össze, ha rövidebb */
-  transition: all 0.3s ease;
-}
-
-
-#back-to-top {
-  position: absolute;
-  width: 300px;
-  text-align: center;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 10px 20px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 24px;
-  color: white;
-  transition: background-color 0.3s ease;
-  border: 2px solid var(--accent-color);;
-  z-index: 9999;
-}
-
-#back-to-top:hover {
-  background-color:  var(--color-4);
+/* Asztali nézet: álló vonal */
+@media (min-width: 768px) {
+  .divider {
+    width: 3px;
+    height: 100%;
+  }
 }
 
 
 
+
+
+
+
+/* Termékek oldal */
 #searchInput
 {
   width: 70vw !important;
