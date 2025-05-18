@@ -1,3 +1,6 @@
+<img src="logo.png" alt="NyxVault logó" width="250"/>
+
+
 # NyxVault
 
 ## Áttekintés
@@ -15,5 +18,8 @@ A **NyxVault** egy hangulatos, gótikus stílusú webáruház, ahol a sötétsé
 - **Webshop mód:** az admin felületen gyorsan feltölthetsz minta termékeket a „Webshop mód” gombbal.
 - **Adminisztráció:** az admin.html oldalon hozhatsz létre, szerkeszthetsz és törölhetsz termékeket.
 - **Nézet:** a products.html oldalon böngészheted a termékeket, megtekintheted a részleteket és hozzáadhatod a kosaradhoz.
+
+## Webshop linkje:
+**http://bordasdaniel.github.io/NyxVault/**
 
 ## „A sötétségben rejlik a stílus, a NyxVault pedig fényt gyújt a gótika útján.”
