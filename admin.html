@@ -6,12 +6,13 @@
     <title>Admin panel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="main.html" id="webname-mini">
+          <a class="navbar-brand" href="index.html" id="webname-mini">
             <img src="logo.png" alt="Icon" class="d-inline-block align-text-top navbar-logo">
             NyxVault
           </a>
@@ -22,10 +23,10 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link" href="main.html">Főoldal</a>
+                <a class="nav-link" href="index.html">Főoldal</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="view.html">Termékeink</a>
+                <a class="nav-link" href="products.html">Termékeink</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" href="admin.html">Belépés</a>
@@ -60,7 +61,10 @@
             <button type="submit" class="btn btn-outline-success me-2">Mentés</button>
             <button type="button" class="btn btn-outline-secondary" onclick="cancelEdit()">Mégse</button>
           </div>
+          <div>
+          <button type="button" class="btn btn-outline-info me-2" data-bs-toggle="modal" data-bs-target="#webshopMode">Webshop mód</button>
           <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#clearModal">Tisztítás</button>
+          </div>
       </div>
     </form>
 
@@ -82,6 +86,27 @@
         </div>
       </div>
     </div>
+
+    <!-- Webshop mód megerősítő modal -->
+    <div class="modal fade" id="webshopMode" tabindex="-1" aria-labelledby="webshopModeLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background-color: var(--color-1); color: var(--text-color);">
+          <div class="modal-header">
+            <h5 class="modal-title" id="webshopModeLabel">🛒 Webshop mód</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Bezárás"></button>
+          </div>
+          <div class="modal-body">
+            Ezzel az opcióval feltöltöd az alapértelmezett bemutató termékeket a rendszerbe.
+            <br><span class="figyelmeztet">A meglévő termékeket felülírja!</span>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Mégse</button>
+            <button type="button" class="btn btn-outline-info" onclick="confirmWebshopMode()">Feltöltés</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <hr class="my-5">
 
@@ -207,6 +232,97 @@ function confirmClear() {
   modal.hide(); // bezárja a modalt
   location.reload(); // újratölti az oldalt, ha kell
 }
+
+
+
+function webshopMode() {
+    const demoProducts = [
+        {
+            title: "Gótikus gyertyatartó",
+            description: "Ez a fekete kovácsoltvas gyertyatartó elegáns, de sötét hangulatot kölcsönöz bármely szobának. Ideális gyertyafényes estékhez, rituálékhoz vagy egyszerűen dekorációnak a lakásodba.",
+            price: 3990,
+            image: "kepek/gotikus_gyerta_tarto.jpg"
+        },
+        {
+            title: "Baphomet falikép",
+            description: "Ez a részletesen kidolgozott fém falikép Baphomet szimbólumával tökéletes választás a misztikum és a gótikus esztétika szerelmeseinek. Erős vizuális hatást kelt a nappaliban vagy hálószobában.",
+            price: 7490,
+            image: "kepek/baphomet_felikep.jpg"
+        },
+        {
+            title: "Koponya kulcstartó",
+            description: "A kis méretű, mégis részletgazdag fémből készült koponya kulcstartó remek ajándék lehet. Praktikus kiegészítő, amely egyedi stílust sugall minden használatkor.",
+            price: 1990,
+            image: "kepek/koponya_kulcstarto.jpg"
+        },
+        {
+            title: "Velúr pentagram táska",
+            description: "Egyedi, puha tapintású velúrból készült oldaltáska, amelyet egy arany pentagram díszít. Tökéletes kiegészítő a sötét divat szerelmeseinek, mindennapi használatra is kiváló.",
+            price: 12990,
+            image: "kepek/velur_pentagram_taska.jpeg"
+        },
+        {
+            title: "Fekete rózsás hajdísz",
+            description: "Kézzel készített hajdísz selyem fekete rózsákkal, amely romantikus és sötét eleganciát kölcsönöz viselőjének. Esküvőre, fotózásra vagy csak stílusos megjelenéshez.",
+            price: 3490,
+            image: "kepek/fekete_rozsas_hajdisz.png"
+        },
+        {
+            title: "Gótikus katedrális gyűrű",
+            description: "Masszív, ezüst színű gyűrű apró katedrálisos mintázattal, amely a középkori építészetet idézi. Tartós és karakteres ékszer, amely kiemeli egyéniségedet.",
+            price: 4990,
+            image: "kepek/gotikus_katedral_gyuru.jpg"
+        },
+        {
+            title: "Holdfény varázs nyaklánc",
+            description: "Ezüst színű láncon függő irizáló holdmedál, amely megcsillan minden mozdulattal. Egyediség és misztikum ötvözete a mindennapokra vagy különleges alkalmakra.",
+            price: 5590,
+            image: "kepek/holdfeny_varazs_nyaklanc.jpg"
+        },
+        {
+            title: "Misztikus könyv alakú ékszerdoboz",
+            description: "Fából készült, könyv alakú doboz béléses belsővel, mely tökéletesen rejti ékszereidet vagy titkos emlékeidet. Kívülről dombornyomott pentagram és antikolt design.",
+            price: 8690,
+            image: "kepek/gotikus_ekszertarto.png"
+        },
+        {
+            title: "Koponyás mécsestartó",
+            description: "Kerámiából készült koponya alakú mécsestartó, amely félelmetes fényt vet a sötétben. Kiváló halloween dekoráció, de egész évben dísze lehet otthonodnak.",
+            price: 2990,
+            image: "kepek/koponya_mecsestarto.jpg"
+        },
+        {
+            title: "Gótikus harisnyatartó szett",
+            description: "Fekete csipkéből készült, láncos díszítéssel ellátott harisnyatartó szett, amely különleges alkalmakra vagy alternatív divatkedvelőknek készült. Részletgazdag és merész kiegészítő.",
+            price: 7890,
+            image: "kepek/gotikus_harisnyatarto.jpg"
+        },
+        {
+            title: "Üvegbúrás fekete rózsa",
+            description: "Egy üvegbúra alatt álló fekete rózsa, amely örök mementója lehet a sötét romantikának. Tökéletes ajándék vagy különleges lakásdekoráció.",
+            price: 9990,
+            image: "kepek/uvegburaba_zart_fekete_rozsa.jpg"
+        }
+    ];
+// Betöltjük a meglévő termékeket (ha vannak)
+    const existing = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+
+    // Összefűzzük a meglévő és az új termékeket
+    const updated = existing.concat(demoProducts);
+
+    // Elmentjük az újat
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+
+    // Frissítjük a megjelenítést
+    loadCards();
+}
+
+function confirmWebshopMode() {
+    webshopMode();
+    const modal = bootstrap.Modal.getInstance(document.getElementById('webshopMode'));
+    modal.hide(); // bezárja a modalt
+}
+
 
 window.addEventListener('DOMContentLoaded', () => {
     loadCards();
